@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csproj", "{0CB413E7-D22E-46B7-AFE7-735C1396B28F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.MainForTests", "..\CSharp.MainForTests\CSharp.MainForTests.csproj", "{46E168B6-6F66-4453-A408-61EC12C92450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.SortingAlgorithm", "..\CSharp.SortingAlgorithm\CSharp.SortingAlgorithm.csproj", "{57739006-C3F8-4327-9B3D-4DD14E29739D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{46E168B6-6F66-4453-A408-61EC12C92450}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46E168B6-6F66-4453-A408-61EC12C92450}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46E168B6-6F66-4453-A408-61EC12C92450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
