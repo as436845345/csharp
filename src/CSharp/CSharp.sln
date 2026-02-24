@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.MainForTests", "..\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.SortingAlgorithm", "..\CSharp.SortingAlgorithm\CSharp.SortingAlgorithm.csproj", "{57739006-C3F8-4327-9B3D-4DD14E29739D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.Math", "..\CSharp.Math\CSharp.Math.csproj", "{02623EB1-E4C7-48F1-B4AE-9A03F16058B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57739006-C3F8-4327-9B3D-4DD14E29739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02623EB1-E4C7-48F1-B4AE-9A03F16058B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02623EB1-E4C7-48F1-B4AE-9A03F16058B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02623EB1-E4C7-48F1-B4AE-9A03F16058B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02623EB1-E4C7-48F1-B4AE-9A03F16058B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ namespace CSharp.SortingAlgorithm.RadixSort;
 
 public partial class RadixSort
 {
-    internal static int[] MSD_Basic(int[] input)
+    public static int[] MSD_Basic(int[] input)
     {
         ArgumentNullException.ThrowIfNull(nameof(input));
 
