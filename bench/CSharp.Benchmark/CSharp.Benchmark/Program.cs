@@ -1,3 +1,3 @@
 ﻿using CSharp.Benchmark.Math;
 
-SqrtBench.ExecuteByBenchmarkRunner();
+SqrtBenchmark.ExecuteByBenchmarkRunner();

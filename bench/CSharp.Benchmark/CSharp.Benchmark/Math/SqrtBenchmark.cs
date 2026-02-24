@@ -3,7 +3,7 @@ using CSharp.Math.Sqrt;
 
 namespace CSharp.Benchmark.Math;
 
-public class SqrtBench : BenchBase<SqrtBench>
+public class SqrtBenchmark : BenchmarkBase<SqrtBenchmark>
 {
     public static IEnumerable<float> FloatSource()
     {
@@ -19,14 +19,14 @@ public class SqrtBench : BenchBase<SqrtBench>
 
     [Benchmark(Baseline = true)]
     [ArgumentsSource(nameof(FloatSource))]
-    public float MathSqrt_Bench(float x)
+    public float MathSqrt(float x)
     {
         return (float)System.Math.Sqrt(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float FastInverseSquareRoot_Bench(float x)
+    public float FastInverseSquareRoot(float x)
     {
         return Sqrt.FastInverseSquareRoot(x);
     }
