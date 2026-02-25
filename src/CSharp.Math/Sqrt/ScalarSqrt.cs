@@ -46,7 +46,7 @@ public class ScalarSqrt
             var onePointFive = Vector128.CreateScalarUnsafe(1.5f);
             var half = Vector128.CreateScalarUnsafe(0.5f);
             // y * (1.5f - 0.5f * x * y * y)
-            var value = Sse.Multiply(rcp, Sse.Subtract(onePointFive, Sse.Multiply(half, Sse.Multiply(vx, Sse.Multiply(rcp, rcp)))));
+            var value = Sse.MultiplyScalar(rcp, Sse.SubtractScalar(onePointFive, Sse.MultiplyScalar(half, Sse.MultiplyScalar(vx, Sse.MultiplyScalar(rcp, rcp)))));
             return value.ToScalar();
         }
 
@@ -63,7 +63,7 @@ public class ScalarSqrt
             var three = Vector128.CreateScalarUnsafe(3f);
             var half = Vector128.CreateScalarUnsafe(0.5f);
             // 0.5f * y * (3f - x * y * y)
-            var value = Sse.Multiply(half, Sse.Multiply(rcp, Sse.Subtract(three, Sse.Multiply(vx, Sse.Multiply(rcp, rcp)))));
+            var value = Sse.MultiplyScalar(half, Sse.MultiplyScalar(rcp, Sse.SubtractScalar(three, Sse.MultiplyScalar(vx, Sse.MultiplyScalar(rcp, rcp)))));
             return value.ToScalar();
         }
 
