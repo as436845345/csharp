@@ -1,4 +1,4 @@
 ﻿using CSharp.Benchmark.Math;
 
-ScalarSqrtBenchmark.ExecuteByBenchmarkRunner();
-//VectorSqrtBenchmark.ExecuteByBenchmarkRunner();
+//ScalarSqrtBenchmark.ExecuteByBenchmarkRunner();
+BatchSqrtBenchmark.ExecuteByBenchmarkRunner();

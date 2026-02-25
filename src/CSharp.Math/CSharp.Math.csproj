@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- 是否开启 QuickJit 编译，默认开启 -->
+    <TieredCompilation>false</TieredCompilation>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
 </Project>

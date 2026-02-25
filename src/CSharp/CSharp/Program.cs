@@ -49,3 +49,5 @@ foreach (var type in classesWithDisplayAttribute)
         Console.WriteLine();
     }
 }
+
+Console.ReadLine();

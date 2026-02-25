@@ -1,5 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using CSharp.Math.Sqrt;
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Benchmark.Math;
 
@@ -35,50 +37,51 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarSseInverseSquareRootNewtonQuake(float x)
+    public float ComputeScalarInverseSquareRootWithSse(float x)
     {
-        return ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonQuake(x);
-    }
-
-    [Benchmark]
-    [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarSseInverseSquareRootNewtonOptimized(float x)
-    {
-        return ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
+        return ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarSseInverseSquareRootDirect(float x)
     {
-        return ScalarSqrt.ComputeScalarSseInverseSquareRootDirect(x);
+        if (Sse.IsSupported)
+        {
+            return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
+        }
+
+        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarSseInverseSquareRootDivide(float x)
     {
-        return ScalarSqrt.ComputeScalarSseInverseSquareRootDivide(x);
+        if (Sse.IsSupported)
+        {
+            // _mm_div_ss (Scalar Single)
+            return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
+        }
+
+        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarAvxInverseSquareRootNewtonQuake(float x)
+    public float ComputeScalarAvxInverseSquareRootNewton(float x)
     {
-        return ScalarSqrt.ComputeScalarAvxInverseSquareRootNewtonQuake(x);
-    }
+        if (Avx.IsSupported)
+        {
+            var vx = Vector256.CreateScalarUnsafe(x);
+            var rcp = Avx.ReciprocalSqrt(vx);
+            var onePointFive = Vector256.CreateScalarUnsafe(1.5f);
+            var half = Vector256.CreateScalarUnsafe(0.5f);
+            // y * (1.5f - 0.5f * x * y * y)
+            var value = Avx.Multiply(rcp, Avx.Subtract(onePointFive, Avx.Multiply(half, Avx.Multiply(vx, Avx.Multiply(rcp, rcp)))));
+            return value.ToScalar();
+        }
 
-    [Benchmark]
-    [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarAvxInverseSquareRootNewtonOptimized(float x)
-    {
-        return ScalarSqrt.ComputeScalarAvxInverseSquareRootNewtonOptimized(x);
-    }
-
-    [Benchmark]
-    [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarAvxInverseSquareRootDirect(float x)
-    {
-        return ScalarSqrt.ComputeScalarAvxInverseSquareRootDirect(x);
+        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 }

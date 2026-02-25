@@ -7,6 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- 是否开启 QuickJit 编译，默认开启 -->
+    <TieredCompilation>false</TieredCompilation>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\CSharp.Math\CSharp.Math.csproj" />
     <ProjectReference Include="..\..\CSharp.SortingAlgorithm\CSharp.SortingAlgorithm.csproj" />
