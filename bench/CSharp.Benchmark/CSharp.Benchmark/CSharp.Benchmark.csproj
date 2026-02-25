@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CSharp.Math\CSharp.Math.csproj" />
-    <ProjectReference Include="..\..\CSharp.SortingAlgorithm\CSharp.SortingAlgorithm.csproj" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\CSharp.Math\CSharp.Math.csproj" />
   </ItemGroup>
 
 </Project>

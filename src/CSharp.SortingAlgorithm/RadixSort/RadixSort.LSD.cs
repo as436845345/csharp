@@ -4,7 +4,7 @@
 
 public partial class RadixSort
 {
-    internal static int[] LSD_Basic(int[] input)
+    public static int[] LSD_Basic(int[] input)
     {
         ArgumentNullException.ThrowIfNull(nameof(input));
 
