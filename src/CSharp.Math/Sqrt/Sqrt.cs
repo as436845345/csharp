@@ -16,8 +16,10 @@ public static partial class HighPerfMath
                 array[i] = Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
             }
 
-            var f2_v = ComputeBatchFastInverseSquareRootUnsafe(array.AsSpan().ToArray());
-            var avx3_v = ComputeBatchInverseSquareRootWithHardwareAcceleration(array.AsSpan().ToArray());
+            var a = array.AsSpan().ToArray();
+            var b = array.AsSpan().ToArray();
+            ComputeBatchFastInverseSquareRootUnsafe(a);
+            ComputeBatchInverseSquareRootWithHardwareAcceleration(b);
         }
     }
 }

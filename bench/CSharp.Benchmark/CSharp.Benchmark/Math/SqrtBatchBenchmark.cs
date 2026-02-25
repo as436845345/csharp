@@ -34,27 +34,25 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
     [Benchmark(Baseline = true)]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchFastInverseSquareRoot(float[] array)
+    public void ComputeBatchFastInverseSquareRoot(float[] array)
     {
         for (int i = 0; i < array.Length; i++)
         {
-            var x = array[i];
-            array[i] = HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
+            ref var x = ref array[i];
+            x = HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchFastInverseSquareRootUnsafe(float[] array)
+    public void ComputeBatchFastInverseSquareRootUnsafe(float[] array)
     {
-        return HighPerfMath.Sqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
+        HighPerfMath.Sqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchSseInverseSquareRoot(float[] array)
+    public void ComputeBatchSseInverseSquareRoot(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -68,16 +66,14 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchAvxInverseSquareRoot(float[] array)
+    public void ComputeBatchAvxInverseSquareRoot(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -91,16 +87,14 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSquareRootWithAvxSseHybrid(float[] array)
+    public void ComputeBatchInverseSquareRootWithAvxSseHybrid(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -119,23 +113,21 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSquareRootWithAvxFallbackSse(float[] array)
+    public void ComputeBatchInverseSquareRootWithAvxFallbackSse(float[] array)
     {
-        return HighPerfMath.Sqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
+        HighPerfMath.Sqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSqrtRootWithSseDivide(float[] array)
+    public void ComputeBatchInverseSqrtRootWithSseDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -158,16 +150,14 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSqrtRootWithAvxDivide(float[] array)
+    public void ComputeBatchInverseSqrtRootWithAvxDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -190,16 +180,14 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSqrtRootWithAvxSseHybridDivide(float[] array)
+    public void ComputeBatchInverseSqrtRootWithAvxSseHybridDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -236,16 +224,14 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float[] ComputeBatchInverseSqrtRootWithAvxFallbackSseDivide(float[] array)
+    public void ComputeBatchInverseSqrtRootWithAvxFallbackSseDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -281,10 +267,8 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         for (; offset < length; offset++)
         {
-            var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            ref var x = ref Unsafe.Add(ref start, offset);
+            x = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
-
-        return array;
     }
 }

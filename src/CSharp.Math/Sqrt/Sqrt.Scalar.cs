@@ -45,7 +45,7 @@ public static partial class HighPerfMath
         {
             if (Sse.IsSupported)
             {
-                return NewtonRaphson.ComputeScalarInverseSquareRootWithSse(x);
+                return NewtonRaphson.InverseSqrtSse(x);
             }
 
             return ComputeScalarFastInverseSquareRoot(x);
