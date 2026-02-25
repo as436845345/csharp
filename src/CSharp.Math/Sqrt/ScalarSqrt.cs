@@ -6,7 +6,7 @@ using System.Runtime.Intrinsics.X86;
 namespace CSharp.Math.Sqrt;
 
 [Display]
-public class Sqrt
+public class ScalarSqrt
 {
     public static void Execute()
     {

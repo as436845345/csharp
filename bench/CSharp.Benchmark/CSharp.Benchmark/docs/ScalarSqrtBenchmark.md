@@ -17,7 +17,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.MathSqrt(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.MathSqrt(Single)
        7FFEAC237CB0 vzeroupper
        7FFEAC237CB3 vcvtss2sd xmm0,xmm0,xmm1
        7FFEAC237CB7 vsqrtsd   xmm0,xmm0,xmm0
@@ -29,7 +29,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.FastInverseSquareRoot(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.FastInverseSquareRoot(Single)
        7FFEAC207DE0 vzeroupper
        7FFEAC207DE3 vmovd     eax,xmm1
        7FFEAC207DE7 sar       eax,1
@@ -49,7 +49,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Sse_1(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_1(Single)
        7FFEAC237E60 vzeroupper
        7FFEAC237E63 vrsqrtss  xmm0,xmm1,xmm1
        7FFEAC237E67 vmulps    xmm2,xmm0,xmm0
@@ -65,7 +65,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Sse_2(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_2(Single)
        7FFEAC207E20 vzeroupper
        7FFEAC207E23 vrsqrtss  xmm0,xmm1,xmm1
        7FFEAC207E27 vmulps    xmm2,xmm0,xmm0
@@ -81,7 +81,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Sse_3(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_3(Single)
        7FFEAC227D30 vzeroupper
        7FFEAC227D33 vsqrtss   xmm0,xmm1,xmm1
        7FFEAC227D37 vmovss    xmm1,dword ptr [7FFEAC227D48]
@@ -93,7 +93,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Sse_4(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_4(Single)
        7FFEAC237D70 vzeroupper
        7FFEAC237D73 vsqrtss   xmm0,xmm1,xmm1
        7FFEAC237D77 vmovups   xmm1,[7FFEAC237D90]
@@ -105,7 +105,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Avx_1(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_1(Single)
        7FFEAC1F7EF0 vzeroupper
        7FFEAC1F7EF3 vrsqrtps  ymm0,ymm1
        7FFEAC1F7EF7 vmulps    ymm2,ymm0,ymm0
@@ -122,7 +122,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Avx_2(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_2(Single)
        7FFEAC217E70 vzeroupper
        7FFEAC217E73 vrsqrtps  ymm0,ymm1
        7FFEAC217E77 vmulps    ymm2,ymm0,ymm0
@@ -139,7 +139,7 @@
 ## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
 
 ```assembly
-; CSharp.Benchmark.Math.SqrtBenchmark.Avx_3(Single)
+; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_3(Single)
        7FFEAC207D30 vzeroupper
        7FFEAC207D33 vsqrtps   ymm0,ymm1
        7FFEAC207D37 vmovss    xmm1,dword ptr [7FFEAC207D48]
