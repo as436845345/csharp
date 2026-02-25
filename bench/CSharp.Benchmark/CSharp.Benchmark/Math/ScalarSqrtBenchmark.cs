@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
-using CSharp.Math.Sqrt;
+using CSharp.Math;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
@@ -32,14 +32,14 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarFastInverseSquareRoot(float x)
     {
-        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarInverseSquareRootWithSse(float x)
     {
-        return ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+        return Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
     }
 
     [Benchmark]
@@ -51,7 +51,7 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
             return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
@@ -64,7 +64,7 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
             return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
 
-        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
@@ -82,6 +82,6 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
             return value.ToScalar();
         }
 
-        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 }

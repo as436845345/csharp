@@ -1,26 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace CSharp.Math.Sqrt;
+namespace CSharp.Math;
 
-[Display]
-public class BatchSqrt
+public static partial class Sqrt
 {
-    public static void Execute()
-    {
-        var array = new float[37];
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
-        }
-
-        var f2_v = ComputeBatchFastInverseSquareRootUnsafe(array.AsSpan().ToArray());
-        var avx3_v = ComputeBatchInverseSquareRootWithHardwareAcceleration(array.AsSpan().ToArray());
-    }
-
     /// <summary>
     /// 批量计算数组的平方根倒数（纯软件魔数法，无硬件指令依赖）
     /// </summary>
@@ -39,7 +25,7 @@ public class BatchSqrt
         for (int i = 0; i < array.Length; i++)
         {
             var x = Unsafe.Add(ref start, i);
-            Unsafe.Add(ref start, i) = ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+            Unsafe.Add(ref start, i) = ComputeScalarFastInverseSquareRoot(x);
         }
 
         return array;
@@ -79,7 +65,7 @@ public class BatchSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;

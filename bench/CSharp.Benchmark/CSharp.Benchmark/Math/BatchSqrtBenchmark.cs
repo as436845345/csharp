@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using CSharp.Math;
-using CSharp.Math.Sqrt;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
@@ -40,7 +39,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (int i = 0; i < array.Length; i++)
         {
             var x = array[i];
-            array[i] = ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
+            array[i] = Sqrt.ComputeScalarFastInverseSquareRoot(x);
         }
 
         return array;
@@ -50,7 +49,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
     [ArgumentsSource(nameof(FloatSource))]
     public float[] ComputeBatchFastInverseSquareRootUnsafe(float[] array)
     {
-        return BatchSqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
+        return Sqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
     }
 
     [Benchmark]
@@ -70,7 +69,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -93,7 +92,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -121,7 +120,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -131,7 +130,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
     [ArgumentsSource(nameof(FloatSource))]
     public float[] ComputeBatchInverseSquareRootWithAvxFallbackSse(float[] array)
     {
-        return BatchSqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
+        return Sqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
     }
 
     [Benchmark]
@@ -192,7 +191,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -238,7 +237,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -283,7 +282,7 @@ public class BatchSqrtBenchmark : BenchmarkBase<BatchSqrtBenchmark>
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;

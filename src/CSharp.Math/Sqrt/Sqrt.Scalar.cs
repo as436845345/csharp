@@ -1,21 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 
-namespace CSharp.Math.Sqrt;
+namespace CSharp.Math;
 
-[Display]
-public class ScalarSqrt
+public static partial class Sqrt
 {
-    public static void Execute()
-    {
-        var x = 1311.22f;
-        var v1 = ComputeScalarFastInverseSquareRoot(x);
-        var sse_1 = ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
-
-        Console.WriteLine(sse_1);
-    }
-
     /// <summary>
     /// 计算标量浮点数的快速平方根倒数（Quake III 魔数法）
     /// </summary>
