@@ -3,7 +3,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Math;
 
-public static partial class Sqrt
+public static partial class HighPerfSqrt
 {
     /// <summary>
     /// 计算标量浮点数的快速平方根倒数（Quake III 魔数法）

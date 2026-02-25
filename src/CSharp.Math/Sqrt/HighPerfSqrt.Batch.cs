@@ -5,7 +5,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Math;
 
-public static partial class Sqrt
+public static partial class HighPerfSqrt
 {
     /// <summary>
     /// 批量计算数组的平方根倒数（纯软件魔数法，无硬件指令依赖）
