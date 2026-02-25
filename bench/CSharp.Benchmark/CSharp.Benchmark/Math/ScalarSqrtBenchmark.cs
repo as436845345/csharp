@@ -14,7 +14,7 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
     [ArgumentsSource(nameof(FloatSource))]
     public float MathSqrt(float x)
     {
-        return (float)System.Math.Sqrt(x);
+        return 1 / (float)System.Math.Sqrt(x);
     }
 
     [Benchmark]

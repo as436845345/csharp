@@ -17,23 +17,23 @@ public class VectorSqrt
             array[i] = Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
         }
 
-        var f1_v = FastInverseSquareRoot(array.AsSpan().ToArray());
-        var f2_v = FastInverseSquareRoot2(array.AsSpan().ToArray());
+        var f1_v = ComputeVectorFastInverseSquareRoot(array.AsSpan().ToArray());
+        var f2_v = ComputeVectorFastInverseSquareRootUnsafe(array.AsSpan().ToArray());
 
-        var sse1_v = Sse_1(array.AsSpan().ToArray());
-        var sse_divide_1_v = Sse_Divide_1(array.AsSpan().ToArray());
+        var sse1_v = ComputeSseInverseSqrtNewton(array.AsSpan().ToArray());
+        var sse_divide_1_v = ComputeSseInverseSqrtDivide(array.AsSpan().ToArray());
 
-        var avx1_v = Avx_1(array.AsSpan().ToArray());
-        var avx2_v = Avx_2(array.AsSpan().ToArray());
-        var avx3_v = Avx_3(array.AsSpan().ToArray());
+        var avx1_v = ComputeAvxInverseSqrtNewton(array.AsSpan().ToArray());
+        var avx2_v = ComputeAvxSseHybridInverseSqrtNewton(array.AsSpan().ToArray());
+        var avx3_v = ComputeAvxFallbackSseInverseSqrtNewton(array.AsSpan().ToArray());
 
-        var avx_divide_1_v = Avx_Devide_1(array.AsSpan().ToArray());
-        var avx_divide_2_v = Avx_Devide_2(array.AsSpan().ToArray());
-        var avx_divide_3_v = Avx_Devide_3(array.AsSpan().ToArray());
+        var avx_divide_1_v = ComputeAvxInverseSqrtDivide(array.AsSpan().ToArray());
+        var avx_divide_2_v = ComputeAvxSseHybridInverseSqrtDivide(array.AsSpan().ToArray());
+        var avx_divide_3_v = ComputeAvxFallbackSseInverseSqrtDivide(array.AsSpan().ToArray());
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] FastInverseSquareRoot(float[] array)
+    public static float[] ComputeVectorFastInverseSquareRoot(float[] array)
     {
         // 含边界检测
 
@@ -47,7 +47,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] FastInverseSquareRoot2(float[] array)
+    public static float[] ComputeVectorFastInverseSquareRootUnsafe(float[] array)
     {
         ref var start = ref MemoryMarshal.GetArrayDataReference(array);
 
@@ -61,7 +61,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Sse_1(float[] array)
+    public static float[] ComputeSseInverseSqrtNewton(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -94,7 +94,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Sse_Divide_1(float[] array)
+    public static float[] ComputeSseInverseSqrtDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -125,7 +125,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_1(float[] array)
+    public static float[] ComputeAvxInverseSqrtNewton(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -158,7 +158,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_2(float[] array)
+    public static float[] ComputeAvxSseHybridInverseSqrtNewton(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -207,7 +207,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_3(float[] array)
+    public static float[] ComputeAvxFallbackSseInverseSqrtNewton(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -255,7 +255,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_Devide_1(float[] array)
+    public static float[] ComputeAvxInverseSqrtDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -286,7 +286,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_Devide_2(float[] array)
+    public static float[] ComputeAvxSseHybridInverseSqrtDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
@@ -331,7 +331,7 @@ public class VectorSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float[] Avx_Devide_3(float[] array)
+    public static float[] ComputeAvxFallbackSseInverseSqrtDivide(float[] array)
     {
         var length = array.Length;
         var offset = 0;
