@@ -1,9 +1,16 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace CSharp.Math;
 
-public static class HighPerfMath
+[Display]
+public static partial class HighPerfMath
 {
+    public static void Execute()
+    {
+        Sqrt.Execute();
+    }
+
     /// <summary>
     /// 计算单精度浮点数的倒数（1/x）：基于SSE指令集+牛顿-拉夫逊迭代法
     /// </summary>

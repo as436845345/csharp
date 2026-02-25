@@ -5,7 +5,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Benchmark.Math;
 
-public class HighPerfSqrtScalarBenchmark : BenchmarkBase<HighPerfSqrtScalarBenchmark>
+public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
 {
     public static IEnumerable<float> FloatSource()
     {
@@ -32,14 +32,14 @@ public class HighPerfSqrtScalarBenchmark : BenchmarkBase<HighPerfSqrtScalarBench
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarFastInverseSquareRoot(float x)
     {
-        return HighPerfSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
     public float ComputeScalarInverseSquareRootWithSse(float x)
     {
-        return HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+        return HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
     }
 
     [Benchmark]
@@ -51,7 +51,7 @@ public class HighPerfSqrtScalarBenchmark : BenchmarkBase<HighPerfSqrtScalarBench
             return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return HighPerfSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
@@ -64,7 +64,7 @@ public class HighPerfSqrtScalarBenchmark : BenchmarkBase<HighPerfSqrtScalarBench
             return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
 
-        return HighPerfSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
@@ -82,6 +82,6 @@ public class HighPerfSqrtScalarBenchmark : BenchmarkBase<HighPerfSqrtScalarBench
             return value.ToScalar();
         }
 
-        return HighPerfSqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 }

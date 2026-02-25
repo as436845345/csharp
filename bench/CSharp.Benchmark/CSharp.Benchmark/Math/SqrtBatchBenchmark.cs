@@ -7,7 +7,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Benchmark.Math;
 
-public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchmark>
+public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 {
     public static IEnumerable<float[]> FloatSource()
     {
@@ -39,7 +39,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (int i = 0; i < array.Length; i++)
         {
             var x = array[i];
-            array[i] = HighPerfSqrt.ComputeScalarFastInverseSquareRoot(x);
+            array[i] = HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
         }
 
         return array;
@@ -49,7 +49,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
     [ArgumentsSource(nameof(FloatSource))]
     public float[] ComputeBatchFastInverseSquareRootUnsafe(float[] array)
     {
-        return HighPerfSqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
+        return HighPerfMath.Sqrt.ComputeBatchFastInverseSquareRootUnsafe(array);
     }
 
     [Benchmark]
@@ -69,7 +69,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -92,7 +92,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -120,7 +120,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -130,7 +130,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
     [ArgumentsSource(nameof(FloatSource))]
     public float[] ComputeBatchInverseSquareRootWithAvxFallbackSse(float[] array)
     {
-        return HighPerfSqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
+        return HighPerfMath.Sqrt.ComputeBatchInverseSquareRootWithHardwareAcceleration(array);
     }
 
     [Benchmark]
@@ -191,7 +191,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -237,7 +237,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
@@ -282,7 +282,7 @@ public class HighPerfSqrtBatchBenchmark : BenchmarkBase<HighPerfSqrtBatchBenchma
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = HighPerfSqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            Unsafe.Add(ref start, offset) = HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
         }
 
         return array;
