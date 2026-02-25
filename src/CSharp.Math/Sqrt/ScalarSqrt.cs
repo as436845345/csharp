@@ -11,13 +11,13 @@ public class ScalarSqrt
     public static void Execute()
     {
         var x = 1311.22f;
-        var v1 = FastInverseSquareRoot(x);
-        var sse_2 = Sse_2(x);
-        var sse_3 = Sse_3(x);
-        var sse_4 = Sse_4(x);
-        var avx_1 = Avx_1(x);
-        var avx_2 = Avx_2(x);
-        var avx_3 = Avx_3(x);
+        var v1 = ComputeScalarFastInverseSquareRoot(x);
+        var sse_2 = ComputeScalarSseInverseSquareRootNewtonOptimized(x);
+        var sse_3 = ComputeScalarSseInverseSquareRootDirect(x);
+        var sse_4 = ComputeScalarSseInverseSquareRootDivide(x);
+        var avx_1 = ComputeScalarAvxInverseSquareRootNewtonQuake(x);
+        var avx_2 = ComputeScalarAvxInverseSquareRootNewtonOptimized(x);
+        var avx_3 = ComputeScalarAvxInverseSquareRootDirect(x);
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class ScalarSqrt
     /// Fast 1/sqrt(x) using Quake III method
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float FastInverseSquareRoot(float x)
+    public static float ComputeScalarFastInverseSquareRoot(float x)
     {
         int i = BitConverter.SingleToInt32Bits(x);
         i = 0x5f3759df - (i >> 1);
@@ -37,7 +37,7 @@ public class ScalarSqrt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Sse_1(float x)
+    public static float ComputeScalarSseInverseSquareRootNewtonQuake(float x)
     {
         if (Sse.IsSupported)
         {
@@ -50,11 +50,11 @@ public class ScalarSqrt
             return value.ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Sse_2(float x)
+    public static float ComputeScalarSseInverseSquareRootNewtonOptimized(float x)
     {
         if (Sse.IsSupported)
         {
@@ -67,22 +67,22 @@ public class ScalarSqrt
             return value.ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Sse_3(float x)
+    public static float ComputeScalarSseInverseSquareRootDirect(float x)
     {
         if (Sse.IsSupported)
         {
             return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Sse_4(float x)
+    public static float ComputeScalarSseInverseSquareRootDivide(float x)
     {
         if (Sse.IsSupported)
         {
@@ -90,7 +90,7 @@ public class ScalarSqrt
             return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     // 不推荐使用，精度差
@@ -106,7 +106,7 @@ public class ScalarSqrt
     //}
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Avx_1(float x)
+    public static float ComputeScalarAvxInverseSquareRootNewtonQuake(float x)
     {
         if (Avx.IsSupported)
         {
@@ -119,11 +119,11 @@ public class ScalarSqrt
             return value.ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Avx_2(float x)
+    public static float ComputeScalarAvxInverseSquareRootNewtonOptimized(float x)
     {
         if (Avx.IsSupported)
         {
@@ -136,17 +136,17 @@ public class ScalarSqrt
             return value.ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Avx_3(float x)
+    public static float ComputeScalarAvxInverseSquareRootDirect(float x)
     {
         if (Avx.IsSupported)
         {
             return 1 / Avx.Sqrt(Vector256.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return FastInverseSquareRoot(x);
+        return ComputeScalarFastInverseSquareRoot(x);
     }
 }

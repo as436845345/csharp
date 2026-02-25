@@ -1,150 +1,67 @@
 ﻿## 性能测试
 
-| Method                | x            | Mean      | Error     | StdDev    | Ratio | Code Size | Allocated | Alloc Ratio |
-|---------------------- |------------- |----------:|----------:|----------:|------:|----------:|----------:|------------:|
-| MathSqrt              | 2.436223E+37 | 5.0470 ns | 0.0409 ns | 0.0382 ns |  1.00 |      16 B |         - |          NA |
-| FastInverseSquareRoot | 2.436223E+37 | 0.2372 ns | 0.0071 ns | 0.0063 ns |  0.05 |      53 B |         - |          NA |
-| Sse_1                 | 2.436223E+37 | 0.2322 ns | 0.0063 ns | 0.0053 ns |  0.05 |      42 B |         - |          NA |
-| Sse_2                 | 2.436223E+37 | 0.2339 ns | 0.0088 ns | 0.0083 ns |  0.05 |      42 B |         - |          NA |
-| Sse_3                 | 2.436223E+37 | 0.2299 ns | 0.0070 ns | 0.0065 ns |  0.05 |      20 B |         - |          NA |
-| Sse_4                 | 2.436223E+37 | 0.2332 ns | 0.0062 ns | 0.0055 ns |  0.05 |      20 B |         - |          NA |
-| Avx_1                 | 2.436223E+37 | 0.2787 ns | 0.0216 ns | 0.0191 ns |  0.06 |      45 B |         - |          NA |
-| Avx_2                 | 2.436223E+37 | 0.2472 ns | 0.0130 ns | 0.0116 ns |  0.05 |      45 B |         - |          NA |
-| Avx_3                 | 2.436223E+37 | 1.2753 ns | 0.0171 ns | 0.0151 ns |  0.25 |      23 B |         - |          NA |
+| Method                                           | x         |      Mean |     Error |    StdDev | Ratio | RatioSD | Code Size | Allocated | Alloc Ratio |
+| ------------------------------------------------ | --------- | --------: | --------: | --------: | ----: | ------: | --------: | --------: | ----------: |
+| ComputeScalarSseInverseSquareRootDivide          | 6.6695404 | 0.2321 ns | 0.0070 ns | 0.0058 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathReciprocalSqrtEstimate                       | 17.414614 | 8.2796 ns | 0.0560 ns | 0.0524 ns |     ? |       ? |      28 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathSqrt                                         | 20.733456 | 7.5462 ns | 0.0774 ns | 0.0686 ns |  1.00 |    0.01 |      28 B |         - |          NA |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootDirect          | 28.603512 | 0.2304 ns | 0.0070 ns | 0.0059 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathSqrt                                         | 30.997772 | 7.5516 ns | 0.0731 ns | 0.0684 ns |  1.00 |    0.01 |      28 B |         - |          NA |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootDivide          | 33.601086 | 0.2253 ns | 0.0069 ns | 0.0057 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathSqrt                                         | 40.171375 | 7.5255 ns | 0.0500 ns | 0.0444 ns |  1.00 |    0.01 |      28 B |         - |          NA |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootDirect          | 44.64195  | 1.2679 ns | 0.0152 ns | 0.0135 ns |     ? |       ? |      23 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootDirect          | 44.867973 | 1.2860 ns | 0.0185 ns | 0.0155 ns |     ? |       ? |      23 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootDirect          | 74.557915 | 0.2249 ns | 0.0064 ns | 0.0053 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarFastInverseSquareRoot               | 83.68503  | 0.2387 ns | 0.0114 ns | 0.0106 ns |     ? |       ? |      53 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarFastInverseSquareRoot               | 85.821014 | 0.1406 ns | 0.0085 ns | 0.0080 ns |     ? |       ? |      53 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonQuake     | 93.548164 | 0.3609 ns | 0.0097 ns | 0.0086 ns |     ? |       ? |      45 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootDivide          | 95.55012  | 0.2345 ns | 0.0110 ns | 0.0097 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonOptimized | 99.86023  | 0.2545 ns | 0.0080 ns | 0.0071 ns |     ? |       ? |      45 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonOptimized | 100.15018 | 0.2501 ns | 0.0086 ns | 0.0076 ns |     ? |       ? |      45 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathReciprocalSqrtEstimate                       | 131.23256 | 8.2829 ns | 0.0548 ns | 0.0486 ns |     ? |       ? |      28 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonOptimized | 131.58133 | 0.2547 ns | 0.0095 ns | 0.0084 ns |     ? |       ? |      45 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootDirect          | 174.36942 | 0.2300 ns | 0.0093 ns | 0.0082 ns |     ? |       ? |      20 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonQuake     | 208.06815 | 0.1482 ns | 0.0074 ns | 0.0069 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonOptimized | 228.72487 | 0.2380 ns | 0.0098 ns | 0.0082 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonQuake     | 287.032   | 0.2331 ns | 0.0089 ns | 0.0079 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonOptimized | 391.02368 | 0.2367 ns | 0.0049 ns | 0.0044 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonQuake     | 392.99518 | 0.2758 ns | 0.0088 ns | 0.0078 ns |     ? |       ? |      45 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| MathReciprocalSqrtEstimate                       | 405.40402 | 8.3135 ns | 0.0360 ns | 0.0319 ns |     ? |       ? |      28 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonQuake     | 428.7303  | 0.2359 ns | 0.0084 ns | 0.0074 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarFastInverseSquareRoot               | 447.21503 | 0.1336 ns | 0.0060 ns | 0.0053 ns |     ? |       ? |      53 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootDirect          | 522.1606  | 1.2742 ns | 0.0172 ns | 0.0161 ns |     ? |       ? |      23 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarSseInverseSquareRootNewtonOptimized | 554.3983  | 0.2357 ns | 0.0054 ns | 0.0045 ns |     ? |       ? |      44 B |         - |           ? |
+|                                                  |           |           |           |           |       |         |           |           |             |
+| ComputeScalarAvxInverseSquareRootNewtonQuake     | 725.4514  | 0.2770 ns | 0.0055 ns | 0.0049 ns |     ? |       ? |      45 B |         - |           ? |
 
 ## 汇编
 
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.MathSqrt(Single)
-       7FFEAC237CB0 vzeroupper
-       7FFEAC237CB3 vcvtss2sd xmm0,xmm0,xmm1
-       7FFEAC237CB7 vsqrtsd   xmm0,xmm0,xmm0
-       7FFEAC237CBB vcvtsd2ss xmm0,xmm0,xmm0
-       7FFEAC237CBF ret
-; Total bytes of code 16
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.FastInverseSquareRoot(Single)
-       7FFEAC207DE0 vzeroupper
-       7FFEAC207DE3 vmovd     eax,xmm1
-       7FFEAC207DE7 sar       eax,1
-       7FFEAC207DE9 neg       eax
-       7FFEAC207DEB add       eax,5F3759DF
-       7FFEAC207DF0 vmovd     xmm0,eax
-       7FFEAC207DF4 vmulss    xmm1,xmm1,dword ptr [7FFEAC207E18]
-       7FFEAC207DFC vmulss    xmm1,xmm1,xmm0
-       7FFEAC207E00 vmulss    xmm1,xmm1,xmm0
-       7FFEAC207E04 vmovss    xmm2,dword ptr [7FFEAC207E1C]
-       7FFEAC207E0C vsubss    xmm1,xmm2,xmm1
-       7FFEAC207E10 vmulss    xmm0,xmm1,xmm0
-       7FFEAC207E14 ret
-; Total bytes of code 53
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_1(Single)
-       7FFEAC237E60 vzeroupper
-       7FFEAC237E63 vrsqrtss  xmm0,xmm1,xmm1
-       7FFEAC237E67 vmulps    xmm2,xmm0,xmm0
-       7FFEAC237E6B vmulps    xmm1,xmm1,xmm2
-       7FFEAC237E6F vmulps    xmm1,xmm1,dword bcst [7FFEAC237E90]
-       7FFEAC237E79 vmovups   xmm2,[7FFEAC237EA0]
-       7FFEAC237E81 vsubps    xmm1,xmm2,xmm1
-       7FFEAC237E85 vmulps    xmm0,xmm0,xmm1
-       7FFEAC237E89 ret
-; Total bytes of code 42
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_2(Single)
-       7FFEAC207E20 vzeroupper
-       7FFEAC207E23 vrsqrtss  xmm0,xmm1,xmm1
-       7FFEAC207E27 vmulps    xmm2,xmm0,xmm0
-       7FFEAC207E2B vmulps    xmm1,xmm1,xmm2
-       7FFEAC207E2F vmovups   xmm2,[7FFEAC207E50]
-       7FFEAC207E37 vsubps    xmm1,xmm2,xmm1
-       7FFEAC207E3B vmulps    xmm0,xmm0,xmm1
-       7FFEAC207E3F vmulps    xmm0,xmm0,dword bcst [7FFEAC207E60]
-       7FFEAC207E49 ret
-; Total bytes of code 42
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_3(Single)
-       7FFEAC227D30 vzeroupper
-       7FFEAC227D33 vsqrtss   xmm0,xmm1,xmm1
-       7FFEAC227D37 vmovss    xmm1,dword ptr [7FFEAC227D48]
-       7FFEAC227D3F vdivss    xmm0,xmm1,xmm0
-       7FFEAC227D43 ret
-; Total bytes of code 20
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Sse_4(Single)
-       7FFEAC237D70 vzeroupper
-       7FFEAC237D73 vsqrtss   xmm0,xmm1,xmm1
-       7FFEAC237D77 vmovups   xmm1,[7FFEAC237D90]
-       7FFEAC237D7F vdivss    xmm0,xmm1,xmm0
-       7FFEAC237D83 ret
-; Total bytes of code 20
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_1(Single)
-       7FFEAC1F7EF0 vzeroupper
-       7FFEAC1F7EF3 vrsqrtps  ymm0,ymm1
-       7FFEAC1F7EF7 vmulps    ymm2,ymm0,ymm0
-       7FFEAC1F7EFB vmulps    ymm1,ymm1,ymm2
-       7FFEAC1F7EFF vmulps    ymm1,ymm1,dword bcst [7FFEAC1F7F20]
-       7FFEAC1F7F09 vmovups   ymm2,[7FFEAC1F7F40]
-       7FFEAC1F7F11 vsubps    ymm1,ymm2,ymm1
-       7FFEAC1F7F15 vmulps    ymm0,ymm0,ymm1
-       7FFEAC1F7F19 vzeroupper
-       7FFEAC1F7F1C ret
-; Total bytes of code 45
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_2(Single)
-       7FFEAC217E70 vzeroupper
-       7FFEAC217E73 vrsqrtps  ymm0,ymm1
-       7FFEAC217E77 vmulps    ymm2,ymm0,ymm0
-       7FFEAC217E7B vmulps    ymm1,ymm1,ymm2
-       7FFEAC217E7F vmovups   ymm2,[7FFEAC217EA0]
-       7FFEAC217E87 vsubps    ymm1,ymm2,ymm1
-       7FFEAC217E8B vmulps    ymm0,ymm0,ymm1
-       7FFEAC217E8F vmulps    ymm0,ymm0,dword bcst [7FFEAC217EC0]
-       7FFEAC217E99 vzeroupper
-       7FFEAC217E9C ret
-; Total bytes of code 45
-```
-
-## .NET 8.0.24 (8.0.24, 8.0.2426.7010), X64 RyuJIT x86-64-v4 (Job: .NET 8.0(Runtime=.NET 8.0))
-
-```assembly
-; CSharp.Benchmark.Math.ScalarSqrtBenchmark.Avx_3(Single)
-       7FFEAC207D30 vzeroupper
-       7FFEAC207D33 vsqrtps   ymm0,ymm1
-       7FFEAC207D37 vmovss    xmm1,dword ptr [7FFEAC207D48]
-       7FFEAC207D3F vdivss    xmm0,xmm1,xmm0
-       7FFEAC207D43 vzeroupper
-       7FFEAC207D46 ret
-; Total bytes of code 23
-```
+[ScalarSqrtBenchmark-asm.md](../bin/Release/net8.0/BenchmarkDotNet.Artifacts/results/CSharp.Benchmark.Math.ScalarSqrtBenchmark-asm.md)

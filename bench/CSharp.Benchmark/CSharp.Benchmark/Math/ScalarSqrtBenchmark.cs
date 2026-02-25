@@ -7,7 +7,9 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
 {
     public static IEnumerable<float> FloatSource()
     {
-        yield return 2.436223E+37f;
+        yield return Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
+        yield return Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
+        yield return Random.Shared.Next(1, 1011) * Random.Shared.NextSingle();
     }
 
     [Benchmark(Baseline = true)]
@@ -19,57 +21,64 @@ public class ScalarSqrtBenchmark : BenchmarkBase<ScalarSqrtBenchmark>
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float FastInverseSquareRoot(float x)
+    public float MathReciprocalSqrtEstimate(float x)
     {
-        return ScalarSqrt.FastInverseSquareRoot(x);
+        return (float)System.Math.ReciprocalSqrtEstimate(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Sse_1(float x)
+    public float ComputeScalarFastInverseSquareRoot(float x)
     {
-        return ScalarSqrt.Sse_1(x);
+        return ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Sse_2(float x)
+    public float ComputeScalarSseInverseSquareRootNewtonQuake(float x)
     {
-        return ScalarSqrt.Sse_2(x);
+        return ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonQuake(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Sse_3(float x)
+    public float ComputeScalarSseInverseSquareRootNewtonOptimized(float x)
     {
-        return ScalarSqrt.Sse_3(x);
+        return ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Sse_4(float x)
+    public float ComputeScalarSseInverseSquareRootDirect(float x)
     {
-        return ScalarSqrt.Sse_4(x);
+        return ScalarSqrt.ComputeScalarSseInverseSquareRootDirect(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Avx_1(float x)
+    public float ComputeScalarSseInverseSquareRootDivide(float x)
     {
-        return ScalarSqrt.Avx_1(x);
+        return ScalarSqrt.ComputeScalarSseInverseSquareRootDivide(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Avx_2(float x)
+    public float ComputeScalarAvxInverseSquareRootNewtonQuake(float x)
     {
-        return ScalarSqrt.Avx_2(x);
+        return ScalarSqrt.ComputeScalarAvxInverseSquareRootNewtonQuake(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float Avx_3(float x)
+    public float ComputeScalarAvxInverseSquareRootNewtonOptimized(float x)
     {
-        return ScalarSqrt.Avx_3(x);
+        return ScalarSqrt.ComputeScalarAvxInverseSquareRootNewtonOptimized(x);
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(FloatSource))]
+    public float ComputeScalarAvxInverseSquareRootDirect(float x)
+    {
+        return ScalarSqrt.ComputeScalarAvxInverseSquareRootDirect(x);
     }
 }

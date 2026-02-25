@@ -40,7 +40,7 @@ public class VectorSqrt
         for (int i = 0; i < array.Length; i++)
         {
             var x = array[i];
-            array[i] = ScalarSqrt.FastInverseSquareRoot(x);
+            array[i] = ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
         }
 
         return array;
@@ -54,7 +54,7 @@ public class VectorSqrt
         for (int i = 0; i < array.Length; i++)
         {
             var x = Unsafe.Add(ref start, i);
-            Unsafe.Add(ref start, i) = ScalarSqrt.FastInverseSquareRoot(x);
+            Unsafe.Add(ref start, i) = ScalarSqrt.ComputeScalarFastInverseSquareRoot(x);
         }
 
         return array;
@@ -87,7 +87,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -118,7 +118,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_4(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootDivide(x);
         }
 
         return array;
@@ -151,7 +151,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -200,7 +200,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -248,7 +248,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -279,7 +279,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -324,7 +324,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
@@ -368,7 +368,7 @@ public class VectorSqrt
         for (; offset < length; offset++)
         {
             var x = Unsafe.Add(ref start, offset);
-            Unsafe.Add(ref start, offset) = ScalarSqrt.Sse_2(x);
+            Unsafe.Add(ref start, offset) = ScalarSqrt.ComputeScalarSseInverseSquareRootNewtonOptimized(x);
         }
 
         return array;
