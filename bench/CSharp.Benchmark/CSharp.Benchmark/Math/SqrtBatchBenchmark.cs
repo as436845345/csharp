@@ -61,7 +61,18 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         if (Sse.IsSupported && length >= Vector128<float>.Count)
         {
-            NewtonRaphson.InverseSqrtBatchSse(ref start, ref offset, length);
+            var onePointFive = Vector128.Create(1.5f);
+            var half = Vector128.Create(0.5f);
+
+            do
+            {
+                var vx = Vector128.LoadUnsafe(ref start, (nuint)offset);
+                var rcp = Sse.ReciprocalSqrt(vx);
+                var powerOfVx = Vector128.Multiply(rcp, rcp);
+                var value = Sse.Multiply(rcp, Sse.Subtract(onePointFive, Sse.Multiply(half, Sse.Multiply(vx, powerOfVx))));
+                Vector128.StoreUnsafe(value, ref start, (nuint)offset);
+            }
+            while (length - (offset += Vector128<float>.Count) >= Vector128<float>.Count);
         }
 
         for (; offset < length; offset++)
@@ -82,7 +93,19 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         if (Avx.IsSupported && length >= Vector256<float>.Count)
         {
-            NewtonRaphson.InverseSqrtBatchAvx(ref start, ref offset, length);
+            var onePointFive = Vector256.Create(1.5f);
+            var half = Vector256.Create(0.5f);
+
+            do
+            {
+                var vx = Vector256.LoadUnsafe(ref start, (nuint)offset);
+                var rcp = Avx.ReciprocalSqrt(vx);
+                var powerOfVx = Vector256.Multiply(rcp, rcp);
+                var value = Avx.Multiply(rcp, Avx.Subtract(onePointFive, Avx.Multiply(half, Avx.Multiply(vx, powerOfVx))));
+
+                Vector256.StoreUnsafe(value, ref start, (nuint)offset);
+            }
+            while (length - (offset += Vector256<float>.Count) >= Vector256<float>.Count);
         }
 
         for (; offset < length; offset++)
@@ -103,12 +126,35 @@ public class SqrtBatchBenchmark : BenchmarkBase<SqrtBatchBenchmark>
 
         if (Avx.IsSupported && length >= Vector256<float>.Count)
         {
-            NewtonRaphson.InverseSqrtBatchAvx(ref start, ref offset, length);
+            var onePointFive = Vector256.Create(1.5f);
+            var half = Vector256.Create(0.5f);
+
+            do
+            {
+                var vx = Vector256.LoadUnsafe(ref start, (nuint)offset);
+                var rcp = Avx.ReciprocalSqrt(vx);
+                var powerOfVx = Vector256.Multiply(rcp, rcp);
+                var value = Avx.Multiply(rcp, Avx.Subtract(onePointFive, Avx.Multiply(half, Avx.Multiply(vx, powerOfVx))));
+
+                Vector256.StoreUnsafe(value, ref start, (nuint)offset);
+            }
+            while (length - (offset += Vector256<float>.Count) >= Vector256<float>.Count);
         }
 
         if (Sse.IsSupported && length - offset >= Vector128<float>.Count)
         {
-            NewtonRaphson.InverseSqrtBatchSse(ref start, ref offset, length);
+            var onePointFive = Vector128.Create(1.5f);
+            var half = Vector128.Create(0.5f);
+
+            do
+            {
+                var vx = Vector128.LoadUnsafe(ref start, (nuint)offset);
+                var rcp = Sse.ReciprocalSqrt(vx);
+                var powerOfVx = Vector128.Multiply(rcp, rcp);
+                var value = Sse.Multiply(rcp, Sse.Subtract(onePointFive, Sse.Multiply(half, Sse.Multiply(vx, powerOfVx))));
+                Vector128.StoreUnsafe(value, ref start, (nuint)offset);
+            }
+            while (length - (offset += Vector128<float>.Count) >= Vector128<float>.Count);
         }
 
         for (; offset < length; offset++)

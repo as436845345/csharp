@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using CSharp.Math;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
@@ -32,14 +31,29 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
     [ArgumentsSource(nameof(FloatSource))]
     public float InverseSqrtMagic(float x)
     {
-        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
+        int i = BitConverter.SingleToInt32Bits(x);
+        i = 0x5f3759df - (i >> 1);
+        float y = BitConverter.Int32BitsToSingle(i);
+        return y * (1.5f - 0.5f * x * y * y);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
     public float InverseSqrt(float x)
     {
-        return HighPerfMath.Sqrt.InverseSqrt(x);
+        if (Sse.IsSupported)
+        {
+            var vx = Vector128.CreateScalarUnsafe(x);
+            var approx = Sse.ReciprocalSqrtScalar(vx);
+            var onePointFive = Vector128.CreateScalarUnsafe(1.5f);
+            var half = Vector128.CreateScalarUnsafe(0.5f);
+
+            var xTimesApproxSq = Sse.MultiplyScalar(vx, Sse.MultiplyScalar(approx, approx));
+            var error = Sse.SubtractScalar(onePointFive, Sse.MultiplyScalar(half, xTimesApproxSq));
+            return Sse.MultiplyScalar(approx, error).ToScalar();
+        }
+
+        throw new InvalidOperationException("Sse not supported!");
     }
 
     [Benchmark]
@@ -51,7 +65,7 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
+        throw new InvalidOperationException("Sse not supported!");
     }
 
     [Benchmark]
@@ -64,7 +78,7 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
 
-        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
+        throw new InvalidOperationException("Sse not supported!");
     }
 
     [Benchmark]
@@ -82,6 +96,6 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return value.ToScalar();
         }
 
-        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
+        throw new InvalidOperationException("Avx not supported!");
     }
 }

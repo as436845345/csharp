@@ -25,8 +25,6 @@ public static partial class HighPerfMath
             int i = BitConverter.SingleToInt32Bits(x);
             i = 0x5f3759df - (i >> 1);
             float y = BitConverter.Int32BitsToSingle(i);
-
-            // 牛顿迭代（Newton–Raphson）公式优化精度
             return NewtonRaphson.RefineInverseSqrt(x, y);
         }
 
@@ -46,7 +44,7 @@ public static partial class HighPerfMath
         public static float InverseSqrt(float x)
         {
             return Sse.IsSupported
-                ? NewtonRaphson.InverseSqrtScalarSse(x)
+                ? NewtonRaphson.InverseSqrtSse(x)
                 : InverseSqrtMagic(x);
         }
     }
