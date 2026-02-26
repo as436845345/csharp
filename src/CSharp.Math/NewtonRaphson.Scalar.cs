@@ -7,40 +7,19 @@ namespace CSharp.Math;
 public static partial class NewtonRaphson
 {
     /// <summary>
-    /// 使用 SSE + 牛顿迭代计算 1/x（倒数）
-    /// 精度：~22 位（单精度 float 上限），延迟：~15 周期
-    /// </summary>
-    /// <param name="x">输入值（x ≠ 0）</param>
-    /// <returns>1/x 的高精度近似值</returns>
-    /// <remarks>
-    /// 1. 牛顿迭代公式：yₙ₊₁ = yₙ * (2 - x * yₙ)
-    /// 2. 纯SSE硬件指令加速，无托管代码开销，适用于高性能数值计算场景
-    /// 3. 二次收敛特性，单次迭代即可将初始近似值精度提升至单精度浮点数上限
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ReciprocalSse(float x)
-    {
-        var vx = Vector128.CreateScalarUnsafe(x);
-        var approx = Sse.ReciprocalScalar(vx);
-        var two = Vector128.CreateScalarUnsafe(2f);
-        var error = Sse.SubtractScalar(two, Sse.MultiplyScalar(vx, approx));
-        return Sse.MultiplyScalar(approx, error).ToScalar();
-    }
-
-    /// <summary>
-    /// 使用 SSE + 牛顿迭代计算 1/√x（平方根倒数）
-    /// 精度：~23 位，延迟：~18 周期
-    /// 常用于：向量归一化、光照计算、物理引擎
+    /// 标量：使用 SSE + 牛顿迭代计算 1/√x（平方根倒数）
     /// </summary>
     /// <param name="x">输入值（x > 0）</param>
-    /// <returns>1/√x 的高精度近似值</returns>
+    /// <returns>1/√x 的高精度近似值（精度 ~23 位）</returns>
     /// <remarks>
-    /// 1. 先通过SSE的ReciprocalSqrtScalar获取初始粗糙近似值
-    /// 2. 再通过牛顿迭代公式优化精度
-    /// 3. 纯硬件指令加速，适用于高性能计算场景（如图形学、游戏引擎）
+    /// <list type="bullet">
+    ///   <item><description>公式：y₁ = y₀ × (1.5 - 0.5 × x × y₀²)</description></item>
+    ///   <item><description>性能：延迟 ~18 周期，常用于向量归一化、光照计算</description></item>
+    ///   <item><description>场景：游戏引擎、物理模拟、图形学</description></item>
+    /// </list>
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float InverseSqrtSse(float x)
+    public static float InverseSqrtScalarSse(float x)
     {
         var vx = Vector128.CreateScalarUnsafe(x);
         var approx = Sse.ReciprocalSqrtScalar(vx);

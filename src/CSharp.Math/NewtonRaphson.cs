@@ -1,39 +1,45 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
 
 namespace CSharp.Math;
 
 public static partial class NewtonRaphson
 {
     /// <summary>
-    /// 牛顿-拉夫逊迭代法计算 1/x（倒数）
+    /// 对 1/x 的初始近似值执行一次牛顿 - 拉夫逊迭代优化
     /// </summary>
-    /// <param name="x">输入值（要求 x ≠ 0）</param>
-    /// <param name="y">初始近似值（建议使用硬件指令如ReciprocalScalar获取粗糙近似值）</param>
-    /// <returns>1/x 的高精度近似值</returns>
+    /// <param name="x">目标值（x ≠ 0）</param>
+    /// <param name="initialApprox">初始近似值（建议由 <see cref="Sse.ReciprocalScalar(Vector128{float})"/> 等指令提供，精度 ~11 位）</param>
+    /// <returns>优化后的近似值（精度 ~22 位，相对误差 &lt; 2⁻²²）</returns>
     /// <remarks>
-    /// 迭代公式：yₙ₊₁ = yₙ * (2 - x * yₙ)
-    /// 二次收敛特性，1-2次迭代即可达到单精度浮点数的精度上限
-    /// 适用场景：高性能计算中替代除法运算（除法指令耗时高于乘法）
+    /// <list type="bullet">
+    ///   <item><description>公式：y₁ = y₀ × (2 - x × y₀)</description></item>
+    ///   <item><description>收敛：二次收敛，1 次迭代即可达 float 精度上限</description></item>
+    ///   <item><description>用途：硬件近似指令的后处理，提升精度</description></item>
+    /// </list>
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ComputeInverse(float x, float y)
+    public static float RefineReciprocal(float x, float initialApprox)
     {
-        return y * (2 - x * y);
+        return initialApprox * (2 - x * initialApprox);
     }
 
     /// <summary>
-    /// 牛顿-拉夫逊迭代法计算 1/√x（平方根倒数）
+    /// 对 1/√x 的初始近似值执行一次牛顿 - 拉夫逊迭代优化
     /// </summary>
-    /// <param name="x">输入值（要求 x > 0）</param>
-    /// <param name="y">初始近似值（建议使用硬件指令/魔数快速获取的粗糙近似值）</param>
-    /// <returns>1/√x 的高精度近似值</returns>
+    /// <param name="x">目标值（x > 0）</param>
+    /// <param name="initialApprox">初始近似值（建议由 <see cref="Sse.ReciprocalSqrtScalar(Vector128{float})"/> 或魔数法提供）</param>
+    /// <returns>优化后的近似值（精度 ~23 位）</returns>
     /// <remarks>
-    /// 迭代公式：yₙ₊₁ = yₙ * (1.5 - 0.5 * x * yₙ²)
-    /// 二次收敛特性，仅需1-2次迭代即可获得高精度结果
+    /// <list type="bullet">
+    ///   <item><description>📐 公式：y₁ = y₀ × (1.5 - 0.5 × x × y₀²)</description></item>
+    ///   <item><description>🎮 用途：图形学中向量归一化、光照计算的核心优化</description></item>
+    /// </list>
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ComputeInverseSquareRoot(float x, float y)
+    public static float RefineInverseSqrt(float x, float initialApprox)
     {
-        return y * (1.5f - 0.5f * x * y * y);
+        return initialApprox * (1.5f - 0.5f * x * initialApprox * initialApprox);
     }
 }

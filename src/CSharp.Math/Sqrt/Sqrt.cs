@@ -7,8 +7,8 @@ public static partial class HighPerfMath
         internal static void Execute()
         {
             var x = 1311.22f;
-            var v1 = ComputeScalarFastInverseSquareRoot(x);
-            var sse_1 = ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+            var isq_value = InverseSqrtMagic(x);
+            var is_value = InverseSqrt(x);
 
             var array = new float[37];
             for (int i = 0; i < array.Length; i++)
@@ -18,8 +18,8 @@ public static partial class HighPerfMath
 
             var a = array.AsSpan().ToArray();
             var b = array.AsSpan().ToArray();
-            ComputeBatchFastInverseSquareRootUnsafe(a);
-            ComputeBatchInverseSquareRootWithHardwareAcceleration(b);
+            InverseSqrtBatchMagic(a);
+            InverseSqrtBatch(b);
         }
     }
 }

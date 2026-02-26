@@ -15,22 +15,14 @@ public static partial class HighPerfMath
     }
 
     /// <summary>
-    /// 计算单精度浮点数的倒数（1/x）
+    /// 计算单精度浮点数的倒数（1f/x）
     /// </summary>
     /// <param name="x">输入值（要求 x ≠ 0）</param>
-    /// <returns>1/x 的近似值（精度 ~22 位，相对误差 &lt; 2⁻²²）</returns>
-    /// <remarks>
-    /// <list type="bullet">
-    ///   <item><description>性能：延迟 ~15 周期，吞吐量 ~1/周期（优于标量除法的 10-14 周期延迟）</description></item>
-    ///   <item><description>精度：牛顿迭代 1 次，精度从 11 位提升至 22 位（接近 float 上限）</description></item>
-    ///   <item><description>边界：x = ±0 时返回 ±∞；x = NaN 时返回 NaN；非规格化数可能精度下降</description></item>
-    ///   <item><description>实现：SSE RCPSS + 牛顿迭代，[AggressiveInlining] 消除调用开销</description></item>
-    /// </list>
-    /// </remarks>
+    /// <returns>1f/x 的结果</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float Reciprocal(float x)
     {
-        return NewtonRaphson.ReciprocalSse(x);
+        return 1f / x;
     }
 
     /// <summary>

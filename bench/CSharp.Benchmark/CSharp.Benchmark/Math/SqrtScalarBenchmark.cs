@@ -30,16 +30,16 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarFastInverseSquareRoot(float x)
+    public float InverseSqrtMagic(float x)
     {
-        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(FloatSource))]
-    public float ComputeScalarInverseSquareRootWithSse(float x)
+    public float InverseSqrt(float x)
     {
-        return HighPerfMath.Sqrt.ComputeScalarInverseSquareRootWithHardwareAcceleration(x);
+        return HighPerfMath.Sqrt.InverseSqrt(x);
     }
 
     [Benchmark]
@@ -51,7 +51,7 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return 1 / Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x)).ToScalar();
         }
 
-        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
     }
 
     [Benchmark]
@@ -64,7 +64,7 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return Sse.DivideScalar(Vector128<float>.One, Sse.SqrtScalar(Vector128.CreateScalarUnsafe(x))).ToScalar();
         }
 
-        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
     }
 
     [Benchmark]
@@ -82,6 +82,6 @@ public class SqrtScalarBenchmark : BenchmarkBase<SqrtScalarBenchmark>
             return value.ToScalar();
         }
 
-        return HighPerfMath.Sqrt.ComputeScalarFastInverseSquareRoot(x);
+        return HighPerfMath.Sqrt.InverseSqrtMagic(x);
     }
 }
