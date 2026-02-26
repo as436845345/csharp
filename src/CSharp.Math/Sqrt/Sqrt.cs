@@ -7,7 +7,7 @@ namespace CSharp.Math;
 
 public static partial class HighPerfMath
 {
-    public static partial class Sqrt
+    public static class Sqrt
     {
         internal static void Execute()
         {
