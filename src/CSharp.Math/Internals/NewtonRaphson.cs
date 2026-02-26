@@ -28,10 +28,10 @@ internal static class NewtonRaphson
     {
         var vx = Vector128.CreateScalarUnsafe(x);
         var approx = Sse.ReciprocalSqrtScalar(vx);
-        var onePointFive = Vector128.CreateScalarUnsafe(1.5f);
+        var threeHalf = Vector128.CreateScalarUnsafe(1.5f);
         var half = Vector128.CreateScalarUnsafe(0.5f);
         var xTimesApproxSq = Sse.MultiplyScalar(vx, Sse.MultiplyScalar(approx, approx));
-        var error = Sse.SubtractScalar(onePointFive, Sse.MultiplyScalar(half, xTimesApproxSq));
+        var error = Sse.SubtractScalar(threeHalf, Sse.MultiplyScalar(half, xTimesApproxSq));
         return Sse.MultiplyScalar(approx, error).ToScalar();
     }
 
@@ -44,7 +44,7 @@ internal static class NewtonRaphson
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void InverseSqrtBatchSse(ref float start, ref int offset, int length)
     {
-        var onePointFive = Vector128.Create(1.5f);
+        var threeHalf = Vector128.Create(1.5f);
         var half = Vector128.Create(0.5f);
 
         do
@@ -52,7 +52,7 @@ internal static class NewtonRaphson
             var vx = Vector128.LoadUnsafe(ref start, (nuint)offset);
             var rcp = Sse.ReciprocalSqrt(vx);
             var powerOfVx = Vector128.Multiply(rcp, rcp);
-            var value = Sse.Multiply(rcp, Sse.Subtract(onePointFive, Sse.Multiply(half, Sse.Multiply(vx, powerOfVx))));
+            var value = Sse.Multiply(rcp, Sse.Subtract(threeHalf, Sse.Multiply(half, Sse.Multiply(vx, powerOfVx))));
             Vector128.StoreUnsafe(value, ref start, (nuint)offset);
         }
         while (length - (offset += Vector128<float>.Count) >= Vector128<float>.Count);
@@ -67,7 +67,7 @@ internal static class NewtonRaphson
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void InverseSqrtBatchAvx(ref float start, ref int offset, int length)
     {
-        var onePointFive = Vector256.Create(1.5f);
+        var threeHalf = Vector256.Create(1.5f);
         var half = Vector256.Create(0.5f);
 
         do
@@ -75,7 +75,7 @@ internal static class NewtonRaphson
             var vx = Vector256.LoadUnsafe(ref start, (nuint)offset);
             var rcp = Avx.ReciprocalSqrt(vx);
             var powerOfVx = Vector256.Multiply(rcp, rcp);
-            var value = Avx.Multiply(rcp, Avx.Subtract(onePointFive, Avx.Multiply(half, Avx.Multiply(vx, powerOfVx))));
+            var value = Avx.Multiply(rcp, Avx.Subtract(threeHalf, Avx.Multiply(half, Avx.Multiply(vx, powerOfVx))));
             Vector256.StoreUnsafe(value, ref start, (nuint)offset);
         }
         while (length - (offset += Vector256<float>.Count) >= Vector256<float>.Count);
