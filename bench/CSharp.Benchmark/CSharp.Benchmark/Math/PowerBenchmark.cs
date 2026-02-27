@@ -43,5 +43,29 @@ public class PowerBenchmark : BenchmarkBase<PowerBenchmark>
         return Power.Pow(x, n);
     }
 
+    [Benchmark]
+    [ArgumentsSource(nameof(Numbers))]
+    public float PowerPow2(float x, int n)
+    {
+        // 快速幂
+        bool navegate = n < 0;
+        n = System.Math.Abs(n);
+
+        float result = 1f;
+        float power = x;
+
+        while (n > 0)
+        {
+            if ((n & 1) == 1)
+                result *= power;
+
+            power *= power;
+
+            n >>= 1;
+        }
+
+        return navegate ? 1f / result : result;
+    }
+
     #endregion
 }

@@ -8,6 +8,8 @@ public static partial class HighPerfMath
     {
         internal static void Execute()
         {
+            Console.WriteLine("[Log2]");
+
             // 1. 准备测试数据
             const int count = 1_000_000; // 测试 100 万个随机数
             var testData = new float[count];

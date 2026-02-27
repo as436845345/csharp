@@ -8,12 +8,21 @@ public static partial class HighPerfMath
     {
         internal static void Execute()
         {
-            const float X = 3.1f;
-            const int N = 78;
+            //Console.WriteLine("[Power]");
 
-            Console.WriteLine(System.Math.Pow(X, N));
-            Console.WriteLine(MathF.Pow(X, N));
-            Console.WriteLine(Pow(X, N));
+            //const float X = 3.3f;
+            //const float Y = 50f;
+
+            //var a = Y * MathF.Log2(X);
+            //var b = Y * Log2.Approximated(X);
+            //var c = 1 - a / b;
+
+            //Console.WriteLine(a);
+            //Console.WriteLine(b);
+            //Console.WriteLine(c);
+
+            //Console.WriteLine(MathF.Pow(X, Y));
+            //Console.WriteLine(Exponential.Exp2(b));
         }
 
         /// <summary>
@@ -25,23 +34,6 @@ public static partial class HighPerfMath
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Pow(float x, int n)
         {
-            switch (n)
-            {
-                case 0: return 1f;
-                case 1: return x;
-                case 2: return x * x;
-                case 3: return x * x * x;
-                case 4: { float x2 = x * x; return x2 * x2; }
-                case 5: { float x2 = x * x; return x2 * x2 * x; }
-                case 6: { float x2 = x * x; return x2 * x2 * x2; }
-                case 7: { float x2 = x * x; float x4 = x2 * x2; return x4 * x2 * x; }
-                case 8: { float x2 = x * x; float x4 = x2 * x2; return x4 * x4; }
-                case -1: return 1f / x;
-                case -2: { float x2 = x * x; return 1f / x2; }
-                case -3: { float x3 = x * x * x; return 1f / x3; }
-                case -4: { float x2 = x * x; return 1f / (x2 * x2); }
-            }
-
             // 快速幂
             bool navegate = n < 0;
             n = System.Math.Abs(n);
@@ -60,6 +52,19 @@ public static partial class HighPerfMath
             }
 
             return navegate ? 1f / result : result;
+        }
+
+        /// <summary>
+        /// Fast general pow(x, y) = exp(y * log(x)).（误差很大，用 <see cref="MathF.Pow(float, float)"/> 替代）
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Pow(float x, float y)
+        {
+            // General case: exp(y * log(x))
+            return Exponential.Exp(y * Log2.Approximated(x) * LN2);
+
+            // x^y = 2^(y·log2(x))
+            //return Exponential.Exp2(y * Log2.Approximated(x));
         }
     }
 }

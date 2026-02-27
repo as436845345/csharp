@@ -4,10 +4,19 @@ namespace CSharp.Math;
 
 public static partial class HighPerfMath
 {
-    public const float LOG2E = 1.44269504088896340736f;
-
     public static class Exponential
     {
+        public static void Execute()
+        {
+            Console.WriteLine("[Exponential]");
+
+            const float X = 70;
+
+            Console.WriteLine(MathF.Exp(X));
+            Console.WriteLine(ExpApprox(X));
+            Console.WriteLine(Exp(X));
+        }
+
         /// <summary>
         /// 线性对数近似指数函数 (Schraudolph 算法)。
         /// 性能：极致 (~4 cycles)。精度：低 (Max Error ~5%)。

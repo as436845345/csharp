@@ -14,6 +14,7 @@ public static partial class HighPerfMath
         Sqrt.Execute();
         Power.Execute();
         Log2.Execute();
+        Exponential.Execute();
     }
 
     /// <summary>
