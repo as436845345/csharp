@@ -15,7 +15,7 @@ public static partial class HighPerfMath
         /// 适用场景：神经网络激活函数 (Sigmoid/Softmax)、对精度不敏感的实时信号缩放。
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float ExpApproxFast(float x)
+        public static float ExpApprox(float x)
         {
             // 限制范围防止阶码溢出污染符号位
             x = System.Math.Clamp(x, -87f, 88f);
