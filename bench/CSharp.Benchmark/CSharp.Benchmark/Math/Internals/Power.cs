@@ -52,4 +52,17 @@ internal static class Power
 
         return navegate ? 1f / result : result;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float Pow(float x, float y)
+    {
+        // x^y = x^(floor(y) * z(0.xxxxxx))
+        int f = (int)MathF.Floor(y);
+        float z = y - f;
+
+        float xy = Pow(x, f);
+        float xz = Exponential.Exp2(z * Log.Log2.Approximated(x));
+
+        return xy * xz;
+    }
 }

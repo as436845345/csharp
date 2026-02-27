@@ -12,7 +12,7 @@ public static partial class HighPerfMath
 
             Console.WriteLine("Exp");
 
-            const float X = 70;
+            const float X = 0.33333f;
             Console.WriteLine(MathF.Exp(X));
             Console.WriteLine(ExpApprox(X));
             Console.WriteLine(Exp(X));

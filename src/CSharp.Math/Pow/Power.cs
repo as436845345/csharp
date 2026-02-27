@@ -8,21 +8,20 @@ public static partial class HighPerfMath
     {
         internal static void Execute()
         {
-            //Console.WriteLine("[Power]");
+            Console.WriteLine("[Power]");
 
-            //const float X = 3.3f;
-            //const float Y = 50f;
+            const float X = 3.3f;
+            const float Y = 50.55555f;
 
-            //var a = Y * MathF.Log2(X);
-            //var b = Y * Log2.Approximated(X);
-            //var c = 1 - a / b;
+            var mfp = MathF.Pow(X, Y);
+            var p2 = Pow2(X, Y);
+            var c = 1 - p2 / mfp;
 
-            //Console.WriteLine(a);
-            //Console.WriteLine(b);
-            //Console.WriteLine(c);
+            Console.WriteLine(mfp);
+            Console.WriteLine(p2);
+            Console.WriteLine(c);
 
-            //Console.WriteLine(MathF.Pow(X, Y));
-            //Console.WriteLine(Exponential.Exp2(b));
+            Console.WriteLine(Pow(X, Y));
         }
 
         /// <summary>
@@ -61,10 +60,28 @@ public static partial class HighPerfMath
         public static float Pow(float x, float y)
         {
             // General case: exp(y * log(x))
+            // log(x) = log2(x) * loge(2)
             return Exponential.Exp(y * Log2.Approximated(x) * LN2);
 
             // x^y = 2^(y·log2(x))
             //return Exponential.Exp2(y * Log2.Approximated(x));
+        }
+
+        /// <summary>
+        /// 运算慢，用 <see cref="MathF.Pow(float, float)"/> 替代
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Pow2(float x, float y)
+        {
+            // x^y = x^(floor(y) * z(0.xxxxxx))
+            int f = (int)MathF.Floor(y);
+            float z = y - f;
+
+            float xy = Pow(x, f);
+            float xz = Exponential.Exp2(z * Log2.Approximated(x));
+
+            return xy * xz;
         }
     }
 }
