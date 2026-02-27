@@ -1,4 +1,6 @@
-﻿namespace CSharp.Benchmark.Math.Internals;
+﻿using System.Runtime.CompilerServices;
+
+namespace CSharp.Benchmark.Math.Internals;
 
 internal static class Power
 {
@@ -9,6 +11,7 @@ internal static class Power
     /// <param name="x">底数 (float)</param>
     /// <param name="n">指数 (int)</param>
     /// <returns>x 的 n 次幂</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float Pow(float x, int n)
     {
         switch (n)

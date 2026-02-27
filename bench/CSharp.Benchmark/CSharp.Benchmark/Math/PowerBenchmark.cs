@@ -5,6 +5,8 @@ namespace CSharp.Benchmark.Math;
 
 public class PowerBenchmark : BenchmarkBase<PowerBenchmark>
 {
+    #region Power
+
     public static IEnumerable<object[]> Numbers()
     {
         yield return [2f, 7];
@@ -40,4 +42,6 @@ public class PowerBenchmark : BenchmarkBase<PowerBenchmark>
     {
         return Power.Pow(x, n);
     }
+
+    #endregion
 }

@@ -1,4 +1,6 @@
-﻿namespace CSharp.Math;
+﻿using System.Runtime.CompilerServices;
+
+namespace CSharp.Math;
 
 public static partial class HighPerfMath
 {
@@ -20,6 +22,7 @@ public static partial class HighPerfMath
         /// <param name="x">底数 (float)</param>
         /// <param name="n">指数 (int)</param>
         /// <returns>x 的 n 次幂</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Pow(float x, int n)
         {
             switch (n)
