@@ -1,4 +1,9 @@
 ﻿using CSharp.Benchmark.Math;
 
-ScalarSqrtBenchmark.ExecuteByBenchmarkRunner();
-//VectorSqrtBenchmark.ExecuteByBenchmarkRunner();
+//ScalarSqrtBenchmark.ExecuteByBenchmarkRunner();
+//SqrtBatchBenchmark.ExecuteByBenchmarkRunner();
+//InverseBenchmark.ExecuteByBenchmarkRunner();
+
+PowerBenchmark.ExecuteByBenchmarkRunner();
+//LogBenchmark.ExecuteByBenchmarkRunner();
+//ExpBenchmark.ExecuteByBenchmarkRunner();

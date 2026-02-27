@@ -1,6 +1,4 @@
-﻿# ScalarSqrt.FastInverseSquareRoot
-
-使用 Quake III Fast Inverse Square Root 方法。
+﻿# 使用 Quake III Fast Inverse Square Root 方法。
 
 ## 外部链接
 
