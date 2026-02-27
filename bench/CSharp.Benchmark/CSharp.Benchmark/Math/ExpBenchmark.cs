@@ -1,23 +1,25 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
 using CSharp.Benchmark.Math.Internals;
 
 namespace CSharp.Benchmark.Math;
 
+[CategoriesColumn]
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class ExpBenchmark : BenchmarkBase<ExpBenchmark>
 {
     #region Exp
 
     public static IEnumerable<float> ExpNumbers()
     {
-        yield return 2;
-        yield return 3;
-        yield return 7;
+        yield return 7.66f;
         yield return 13;
-        yield return 77;
+        yield return 75.82937f;
         yield return 131;
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
+    [BenchmarkCategory("Exp")]
     [ArgumentsSource(nameof(ExpNumbers))]
     public float MathFExp(float x)
     {
@@ -25,6 +27,7 @@ public class ExpBenchmark : BenchmarkBase<ExpBenchmark>
     }
 
     [Benchmark]
+    [BenchmarkCategory("Exp")]
     [ArgumentsSource(nameof(ExpNumbers))]
     public float Exp(float x)
     {
@@ -32,6 +35,7 @@ public class ExpBenchmark : BenchmarkBase<ExpBenchmark>
     }
 
     [Benchmark]
+    [BenchmarkCategory("Exp")]
     [ArgumentsSource(nameof(ExpNumbers))]
     public float ExpApprox(float x)
     {
@@ -62,22 +66,25 @@ public class ExpBenchmark : BenchmarkBase<ExpBenchmark>
         yield return -30;
     }
 
-    [Benchmark]
-    [ArgumentsSource(nameof(ExpNumbers))]
+    [Benchmark(Baseline = true)]
+    [BenchmarkCategory("Exp2")]
+    [ArgumentsSource(nameof(Exp2Numbers))]
     public float MathFExp2(float x)
     {
         return MathF.Pow(2, x);
     }
 
     [Benchmark]
-    [ArgumentsSource(nameof(ExpNumbers))]
+    [BenchmarkCategory("Exp2")]
+    [ArgumentsSource(nameof(Exp2Numbers))]
     public float Exp2(float x)
     {
         return Exponential.Exp2(x);
     }
 
     [Benchmark]
-    [ArgumentsSource(nameof(ExpNumbers))]
+    [BenchmarkCategory("Exp2")]
+    [ArgumentsSource(nameof(Exp2Numbers))]
     public float Exp2Variant(float x)
     {
         switch (x)
