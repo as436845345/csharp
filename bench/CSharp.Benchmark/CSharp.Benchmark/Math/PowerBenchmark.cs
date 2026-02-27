@@ -7,9 +7,17 @@ public class PowerBenchmark : BenchmarkBase<PowerBenchmark>
 {
     public static IEnumerable<object[]> Numbers()
     {
-        yield return [3.1f, 4];
-        yield return [3.1f, 8];
-        yield return [3.1f, 13];
+        yield return [2f, 7];
+        yield return [2f, 9];
+        yield return [2f, 10];
+        yield return [3.1f, 9];
+        yield return [3.1f, 10];
+        yield return [3.1f, 11];
+        yield return [3.1f, 31];
+        yield return [3.1f, 77];
+        yield return [5f, 9];
+        yield return [5f, 10];
+        yield return [5f, 11];
     }
 
     [Benchmark]

@@ -4,9 +4,18 @@ public static partial class HighPerfMath
 {
     public static class Power
     {
+        internal static void Execute()
+        {
+            const float X = 3.1f;
+            const int N = 78;
+
+            Console.WriteLine(System.Math.Pow(X, N));
+            Console.WriteLine(MathF.Pow(X, N));
+            Console.WriteLine(Pow(X, N));
+        }
+
         /// <summary>
-        /// 高性能浮点数整数次幂运算。
-        /// 对小指数 (-4 ~ 8) 使用展开优化，大指数使用快速幂算法。
+        /// 高性能浮点数整数次幂运算。（直接用 <see cref="MathF.Pow(float, float)"/> 替代）
         /// </summary>
         /// <param name="x">底数 (float)</param>
         /// <param name="n">指数 (int)</param>

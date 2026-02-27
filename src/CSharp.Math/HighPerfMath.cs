@@ -12,6 +12,8 @@ public static partial class HighPerfMath
     public static void Execute()
     {
         Sqrt.Execute();
+        Power.Execute();
+        Log2.Execute();
     }
 
     /// <summary>

@@ -10,6 +10,7 @@ public class LogBenchmark : BenchmarkBase<LogBenchmark>
         yield return 13f;
         yield return 167f;
         yield return 312f;
+        yield return 412.322768f;
         yield return 677f;
     }
 

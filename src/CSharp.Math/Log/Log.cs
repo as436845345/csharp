@@ -6,6 +6,54 @@ public static partial class HighPerfMath
 {
     public static class Log2
     {
+        internal static void Execute()
+        {
+            // 1. 准备测试数据
+            const int count = 1_000_000; // 测试 100 万个随机数
+            var testData = new float[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                // 生成范围在 (0.001, 1000000) 之间的随机浮点数
+                testData[i] = (float)Random.Shared.NextDouble() * 1000000f + 0.001f;
+            }
+
+            double totalErrorApprox = 0;
+            double totalErrorEst = 0;
+            float maxErrorApprox = 0;
+            float maxErrorEst = 0;
+
+            // 2. 开始测试
+            foreach (var x in testData)
+            {
+                float actual = MathF.Log2(x);
+                float approx = Approximated(x);
+                float est = Estimated(x);
+
+                // 计算绝对误差
+                float diffApprox = MathF.Abs(actual - approx);
+                float diffEst = MathF.Abs(actual - est);
+
+                // 累加误差用于平均值
+                totalErrorApprox += diffApprox;
+                totalErrorEst += diffEst;
+
+                // 记录最大误差
+                if (diffApprox > maxErrorApprox) maxErrorApprox = diffApprox;
+                if (diffEst > maxErrorEst) maxErrorEst = diffEst;
+            }
+
+            // 3. 输出结果
+            Console.WriteLine($"--- Log2 Accuracy Test (Samples: {count}) ---");
+            Console.WriteLine($"[Approximated (多项式)]");
+            Console.WriteLine($"  平均绝对误差: {totalErrorApprox / count:F6}");
+            Console.WriteLine($"  最大绝对误差: {maxErrorApprox:F6}");
+
+            Console.WriteLine($"\n[Estimated (位模式)]");
+            Console.WriteLine($"  平均绝对误差: {totalErrorEst / count:F6}");
+            Console.WriteLine($"  最大绝对误差: {maxErrorEst:F6}");
+        }
+
         /// <summary>
         /// 基于多项式逼近的快速 Log2 计算。
         /// <para>原理：提取 IEEE 754 阶码 e，并对尾数 m 在 [1, 2) 区间使用三阶多项式拟合 log2(m)。</para>
@@ -30,7 +78,16 @@ public static partial class HighPerfMath
             // 3. 使用秦九韶算法计算多项式: t * (a - t * (b - t * c))
             // 拟合 log2(1 + t), t 属于 [0, 1)
             float t = m - 1f;
-            float log2m = t * (1.4425f - t * (0.7213f - t * 0.4825f));
+
+            // 泰勒展开
+            //float log2m = t * (1.4425f - t * (0.7213f - t * 0.4825f));
+
+            // 推荐系数：区间拟合版本
+            // 相比泰勒系数：
+            // - 最大误差更小
+            // - 全区间更均匀
+            // - 更适合 DSP / 图形 / 实时系统
+            float log2m = t * (1.5353f - t * (0.7635f - t * 0.2282f));
 
             // 根据对数运算法则: log2(2^e * m) = e + log2(m)
             return e + log2m;
@@ -48,8 +105,8 @@ public static partial class HighPerfMath
         {
             int i = BitConverter.SingleToInt32Bits(x);
             // 1065353216 = 127 << 23 (即 1.0f 的整数表示)
-            // 8.2629...e-8f = 1 / 2^23 的修正值
-            return (i - 1065353216) * 8.2629582881927490e-8f;
+            // 1.1920928955078125e-7f = 1 / 2^23 的修正值
+            return (i - 1065353216) * 1.1920928955078125e-7f;
         }
     }
 }

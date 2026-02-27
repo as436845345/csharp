@@ -30,7 +30,7 @@ internal static class Log
             // 3. 使用秦九韶算法计算多项式: t * (a - t * (b - t * c))
             // 拟合 log2(1 + t), t 属于 [0, 1)
             float t = m - 1f;
-            float log2m = t * (1.4425f - t * (0.7213f - t * 0.4825f));
+            float log2m = t * (1.5353f - t * (0.7635f - t * 0.2282f));
 
             // 根据对数运算法则: log2(2^e * m) = e + log2(m)
             return e + log2m;
@@ -48,8 +48,8 @@ internal static class Log
         {
             int i = BitConverter.SingleToInt32Bits(x);
             // 1065353216 = 127 << 23 (即 1.0f 的整数表示)
-            // 8.2629...e-8f = 1 / 2^23 的修正值
-            return (i - 1065353216) * 8.2629582881927490e-8f;
+            // 1.1920928955078125e-7f = 1 / 2^23 的修正值
+            return (i - 1065353216) * 1.1920928955078125e-7f;
         }
     }
 }

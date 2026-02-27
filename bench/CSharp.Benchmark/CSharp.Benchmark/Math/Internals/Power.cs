@@ -22,6 +22,8 @@ internal static class Power
             case 6: { float x2 = x * x; return x2 * x2 * x2; }
             case 7: { float x2 = x * x; float x4 = x2 * x2; return x4 * x2 * x; }
             case 8: { float x2 = x * x; float x4 = x2 * x2; return x4 * x4; }
+            case 9: { float x2 = x * x; float x4 = x2 * x2; return x4 * x4 * x; }
+            case 10: { float x2 = x * x; float x4 = x2 * x2; return x4 * x4 * x2; }
             case -1: return 1f / x;
             case -2: { float x2 = x * x; return 1f / x2; }
             case -3: { float x3 = x * x * x; return 1f / x3; }
