@@ -10,11 +10,17 @@ public static partial class HighPerfMath
         {
             Console.WriteLine("[Exponential]");
 
-            const float X = 70;
+            Console.WriteLine("Exp");
 
+            const float X = 70;
             Console.WriteLine(MathF.Exp(X));
             Console.WriteLine(ExpApprox(X));
             Console.WriteLine(Exp(X));
+
+            Console.WriteLine("Exp2");
+            const float N = 31.333f;
+            Console.WriteLine(MathF.Pow(2, N));
+            Console.WriteLine(Exp2(N));
         }
 
         /// <summary>
