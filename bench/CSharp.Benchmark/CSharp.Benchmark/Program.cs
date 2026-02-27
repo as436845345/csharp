@@ -4,5 +4,6 @@
 //SqrtBatchBenchmark.ExecuteByBenchmarkRunner();
 //InverseBenchmark.ExecuteByBenchmarkRunner();
 
-PowerBenchmark.ExecuteByBenchmarkRunner();
+//PowerBenchmark.ExecuteByBenchmarkRunner();
 //LogBenchmark.ExecuteByBenchmarkRunner();
+ExpBenchmark.ExecuteByBenchmarkRunner();
