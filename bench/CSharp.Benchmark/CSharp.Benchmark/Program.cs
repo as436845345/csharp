@@ -6,4 +6,6 @@
 
 //PowerBenchmark.ExecuteByBenchmarkRunner();
 //LogBenchmark.ExecuteByBenchmarkRunner();
-ExpBenchmark.ExecuteByBenchmarkRunner();
+//ExpBenchmark.ExecuteByBenchmarkRunner();
+
+TrigBenchmark.ExecuteByBenchmarkRunner();

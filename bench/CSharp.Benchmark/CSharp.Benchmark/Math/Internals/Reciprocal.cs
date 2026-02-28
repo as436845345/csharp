@@ -1,30 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace CSharp.Math;
+namespace CSharp.Benchmark.Math.Internals;
 
-[Display]
-public static partial class HighPerfMath
+internal static class Reciprocal
 {
-    public static void Execute()
-    {
-        Sqrt.Execute();
-        Power.Execute();
-        Log2.Execute();
-        Exponential.Execute();
-        Trig.Execute();
-    }
-
     /// <summary>
     /// 计算单精度浮点数的倒数（1f/x）
     /// </summary>
     /// <param name="x">输入值（要求 x ≠ 0）</param>
     /// <returns>1f/x 的结果</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float Reciprocal(float x)
+    public static float ReciprocalScalar(float x)
     {
         return 1f / x;
     }
